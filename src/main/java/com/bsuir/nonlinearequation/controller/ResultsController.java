@@ -14,13 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
+import static com.bsuir.nonlinearequation.utils.ViewUtils.hideWindowByNode;
+import static com.bsuir.nonlinearequation.utils.ViewUtils.showWindowWithoutInitialization;
+
 public class ResultsController {
     @FXML
     private LineChart<Number, Number> functionGraphic;
     @FXML
     private LineChart<Number, Number> rootsGraphics;
     @FXML
-    private VBox uniqueRootsHBox;
+    private VBox uniqueRootsVBox;
 
     @FXML
     private Pane pane;
@@ -37,13 +40,13 @@ public class ResultsController {
         Vector yEqualsXVector = buildYEqualsXVector(results);
         ViewUtils.addSeries(rootsGraphics, "y=x", yEqualsXVector, yEqualsXVector);
 
-        uniqueRootsHBox.getChildren().addAll(buildResolvingResultLabels(results));
+        uniqueRootsVBox.getChildren().addAll(buildResolvingResultLabels(results));
     }
 
     @FXML
     public void goToMainPage() throws IOException {
-        com.bsuir.nonlinearequation.utils.ViewUtils.showWindowWithoutInitialization("/main.fxml");
-        com.bsuir.nonlinearequation.utils.ViewUtils.hideWindowByNode(pane);
+        showWindowWithoutInitialization("/main.fxml");
+        hideWindowByNode(pane);
     }
 
     private Vector buildYEqualsXVector(List<FunctionCoordinates> results) {

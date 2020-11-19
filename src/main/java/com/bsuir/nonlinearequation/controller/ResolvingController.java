@@ -7,6 +7,7 @@ import com.bsuir.nonlinearequation.data.FunctionCoordinates;
 import com.bsuir.nonlinearequation.logic.NonLinearEquationService;
 import com.bsuir.nonlinearequation.logic.impl.NonLinearEquationServiceImpl;
 import com.bsuir.nonlinearequation.utils.TaskUtils;
+import com.bsuir.nonlinearequation.utils.VariantUtils;
 import com.bsuir.nonlinearequation.utils.ViewUtils;
 import com.bsuir.nonlinearequation.view.FunctionCoordinateTableRow;
 import com.bsuir.nonlinearequation.view.FunctionRootTableRow;
@@ -21,10 +22,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static com.bsuir.diffintegralcalc.utils.VariantUtils.getFirstDifferentialOfF;
-import static com.bsuir.funapproximation.util.VariantUtils.getF;
-import static com.bsuir.funapproximation.util.VariantUtils.getPhi;
 
 public class ResolvingController {
     private final NonLinearEquationService nonLinearEquationService = new NonLinearEquationServiceImpl();
@@ -77,10 +74,8 @@ public class ResolvingController {
         double alpha = Double.parseDouble(alphaField.getText());
         double eps = Double.parseDouble(epsField.getText());
 
-        Vector xkVector = nonLinearEquationService.solveEquation(alpha, eps,
-                com.bsuir.nonlinearequation.utils.VariantUtils.getPhi());
-        Vector ykVector = functionService.calculateYVector(com.bsuir.nonlinearequation.utils.VariantUtils.getPhi(),
-                xkVector);
+        Vector xkVector = nonLinearEquationService.solveEquation(alpha, eps, VariantUtils.getPhi());
+        Vector ykVector = functionService.calculateYVector(VariantUtils.getPhi(), xkVector);
 
         int it = xkVector.len() - 1;
         double z = xkVector.get(it);
